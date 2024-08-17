@@ -1,0 +1,200 @@
+<?php
+include('connection.php');
+?>
+<?php
+$id = $_GET["id"];
+$sql = "SELECT * FROM complain where id=$id";
+$result=mysqli_query($con,$sql);
+$Rr= mysqli_fetch_array($result);
+?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="dash.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/fontawesome.min.css"
+    />
+    <link rel="stylesheet" href="css/all.min.css" />
+    <link rel="stylesheet" href="css/fontawesome.min.css" />
+    <title>Document</title>
+    <style>
+      .addfir {
+        padding-top: 20px;
+        margin-left: 170px;
+      }
+      .addfir input {
+        align-items: center;
+        width: 70%;
+        border-style: solid;
+        border-color: gray;
+        border-width: 1px;
+        border-radius: 5px;
+        padding: 5px;
+        box-shadow: 1px 1px 1px 0 gray;
+        height: 30px;
+      }
+      label {
+        width: 130px;
+        display: inline-block;
+      }
+      button#submit {
+        margin-top: 18px;
+        margin-bottom:10px;
+        padding: 7px;
+        cursor: pointer;
+        border-radius: 10px;
+        background-color: rgb(48, 154, 160);
+        color: #fff;
+        width: 100px;
+      }
+      button#submit:hover {
+        background-color: rgb(48, 154, 160);
+        transform: scale(1.1);
+        color: #fff;
+        transition: 0.5s;
+      }
+      select {
+        width: 70%;
+        border: 1px solid black;
+        border-radius: 5px;
+        box-shadow: 1px 1px 1px 0 gray;
+      }
+      fieldset {
+        box-shadow: 5px 0px 5px 0 gray;
+      }
+      button {
+        margin: 20px auto;
+        font-size: 15px;
+        background-color: rgb(48, 154, 160);
+        color: white;
+        padding: 10px 45px;
+        border-radius: 18px;
+        box-shadow: 0 0 2px rgb(117, 113, 113);
+        border: none;
+        cursor: pointer;
+        transition: 0.5s;
+      }
+      button:hover {
+        background-color: rgb(48, 154, 160);
+      }
+      legend {
+        padding-top: 60px;
+        padding-left: 30px;
+        color: rgb(48, 154, 160);
+        text-align:center;
+      }
+      .l2{
+        padding-top: 20px;
+        margin-left:-150px;
+        color: rgb(48, 154, 160);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+    <nav>
+        <ul>
+          <li>
+            <a href="#" class="logo">
+              <img src="images/logos.png" />
+              <span class="nav-item">Admin</span>
+            </a>
+          </li>
+          <li>
+            <a href="adminDashboard.php">
+              <i class="fa fa-house"></i>
+              <span class="nav-item">Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a href="record.php">
+              <i class="fa fa-database"></i>
+              <span class="nav-item">Record</span>
+            </a>
+          </li>
+          <li>
+            <a href="mOfficer.php">
+              <i class="fa fa-users"></i>
+              <span class="nav-item">Officers</span>
+            </a>
+          </li>
+          <li>
+            <a href="manageUsers.php">
+              <i class="fa fa-list"></i>
+              <span class="nav-item">Users</span>
+            </a>
+          </li>
+          <li>
+            <a href="criminal.php">
+              <i class="fa fa-handcuffs"></i>
+              <span class="nav-item">Criminals</span>
+            </a>
+          </li>
+          <li>
+            <a href="mail.php">
+            <i class="fa  fa-envelope"></i>
+              <span class="nav-item">Mails</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <section class="main">
+        <div class="main-top">
+          <h1>View Complain</h1>
+        </div>
+
+        <section class="second">
+          <div class="second-list">
+            <fieldset class="crimefield">
+              <legend><h1>FIR Form</h1></legend>
+              <?php $s = $_SERVER['PHP_SELF'];?>
+              <form class="addfir" action="<?php $s ?>" method="POST">
+                <label>Crime type:</label>
+                <select name="crimetype" readonly value="<?php echo $Rr['crimetype']?>">
+                <option value="murder">Murder</option>
+                  <option value="rape">Rape</option>
+                  <option value="Theft">Theft</option> 
+                </select>
+                <br /><br />
+                <label>Crime Location:</label>
+                <input type="text" name="crimelocation" 
+                readonly value="<?php echo $Rr['crimelocation']?>"/>
+                <br /><br />
+                <label>Name of Accused:</label>
+                <input type="text" name="nameofaccused"
+                readonly value="<?php echo $Rr['nameofaccused']?>"/>
+                <br /><br />
+              <legend class="l2"><h1>Comliant Details</h1></legend>
+                <label>Name:</label>
+                <input type="text" name="name" 
+                placeholder="Enter  Name"
+                readonly value="<?php echo $Rr['name']?>"/>
+                <br /><br />
+                <label>Mobile Number:</label>
+                <input
+                  type="text"
+                  name="mobilenumber"
+                  placeholder="Enter Mobile Number"
+                  readonly value="<?php echo $Rr['mobilenum']?>"
+                />
+                <br /><br />
+                <label>Address:</label>
+                <input
+                  type="text"
+                  name="address"
+                  placeholder="Enter Address"
+                  readonly value="<?php echo $Rr['address']?>"
+                /><br /><br />
+                <label>Relation with Accused Person:</label>
+                <input type="text" name="relation" readonly value="<?php echo $Rr['relation']?>"/>
+                <br /><br />
+              </form>
+            </fieldset>
+          </div>
+        </section>
+      </section>
+    </div>
+  </body>
+</html>
